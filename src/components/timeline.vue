@@ -5,6 +5,9 @@
             <div v-if="loading">
                 ロード中...
             </div>
+            <div v-if="loadingError">
+                ロードに失敗しました。
+            </div>
             <article v-for="post in posts" :key="post.id">
                 <img :src="post.account.avatar" />
                 <div class="main">
@@ -26,6 +29,7 @@ export default Vue.extend({
         posts: [] as any[],
         ws: undefined as WebSocket | undefined,
         loading: true,
+        loadingError: false,
     }),
     props: {
         instance: {
@@ -55,6 +59,10 @@ export default Vue.extend({
             this.posts = r
             this.loading = false
             this.connectStream()
+        }).catch(e => {
+            console.error("Timeline Load Error:",e)
+            this.loading = false
+            this.loadingError = true
         })
     }
 })
