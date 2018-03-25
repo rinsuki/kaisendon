@@ -112,6 +112,7 @@ export default Vue.extend({
                 icon: typeToIcon[this.params.type],
                 title: titleToIcon[this.params.type],
                 account: this.params.instance,
+                uuid: this.uuid,
             }
             if (this.params.type == "hashtag" || this.params.type == "hashtag:local") {
                 r.title = this.params.hashtag
@@ -129,6 +130,12 @@ export default Vue.extend({
             this.loading = false
             this.loadingError = true
         })
+    },
+    destroyed() {
+        if (this.ws) {
+            this.ws.close()
+            this.ws = undefined
+        }
     }
 })
 </script>

@@ -4,8 +4,15 @@
             <i :class="['fa', 'fa-'+icon]" v-if="icon"/>
             <div class="header-main">
                 <div class="title" :title="title">{{ title }}</div>
-                <div class="instance" :title="account">{{ account}}</div>
+                <div class="instance" :title="account">{{ account }}</div>
             </div>
+            <button v-bind:class="{active: settingsOpen}" v-on:click="settingsOpen = !settingsOpen">
+                <i class="fa fa-cog" />
+            </button>
+        </div>
+        <div class="settings" v-show="settingsOpen">
+            <slot name="settings"/>
+            <button class="text-button" v-if="uuid" v-on:click="$store.dispatch('removeColumn', uuid)"><i class="fa fa-times"/> このカラムを消す</button>
         </div>
         <div class="main">
             <slot />
@@ -25,8 +32,14 @@ export default Vue.extend({
         },
         icon: {
             type: String
-        }
-    }
+        },
+        uuid: {
+            type: String
+        },
+    },
+    data: () => ({
+        settingsOpen: false
+    })
 })
 </script>
 
@@ -44,12 +57,20 @@ export default Vue.extend({
     display: flex;
     height: 3em;
     align-items: center;
-    padding: 0 1em;
 }
-.fa {
+.header:first-child {
+    padding-left: 1em;
+}
+
+.header > *:not(:last-child) {
+    padding-right: 0.5em;
+}
+
+.header > .fa {
     font-size: 150%;
     padding-right: 0.5em;
 }
+
 .header-main{
     flex: 1;
     display: flex;
@@ -66,8 +87,32 @@ export default Vue.extend({
 .header .instance {
     font-size: 75%;
 }
+
+.header button {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.25rem;
+}
+
 .main {
     flex: 1;
     overflow-y: auto;
 }
+
+.settings {
+    padding: 0.5em;
+    background: #ccc;
+}
+
+.header > button {
+    background: inherit;
+    border: none;
+}
+.header > button:focus {
+    outline: none;
+}
+.header > button.active {
+    background: #ccc;
+}
+
 </style>

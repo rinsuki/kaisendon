@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="columns">
-            <template v-for="(column, uuid) in $store.state.columns">
-                <div :is="'column-'+column.type" :key="uuid" :uuid="uuid" />
+            <template v-for="column in columns">
+                <div :is="'column-'+column.type" :key="column.uuid" :uuid="column.uuid" />
             </template>
             <column title="新規カラムを追加" icon="plus">
                 <form v-on:submit="add">
@@ -40,6 +40,14 @@ export default Vue.extend({
             }).then(() => {
                 this.newInstance = ""
             })
+        }
+    },
+    computed: {
+        columns() {
+            return store.state.columnLocations.map(uuid => ({
+                uuid,
+                ...store.state.columns[uuid]
+            }))
         }
     }
 })
