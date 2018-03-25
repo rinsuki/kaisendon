@@ -1,0 +1,4 @@
+content:
+    public/
+dev:
+    publicPath: /webpack
