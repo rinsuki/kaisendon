@@ -1,21 +1,41 @@
 import Vue from "vue"
 import Vuex from "vuex"
+import * as uuidv4 from "uuid/v4"
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state: {
-        tabs: [] as string[]
+        columns: {} as {[key: string]: Column}
     },
     mutations: {
-        addTab(state, payload) {
-            state.tabs.push(payload)
+        addColumn(state, payload) {
+            state.columns[payload.uuid] = payload.column
         }
     },
     actions: {
-        addTab(context, instance: string) {
-            context.commit("addTab", instance)
+        addColumn(context, column: Column) {
+            context.commit("addColumn", {
+                uuid: uuidv4(),
+                column
+            })
         }
     }
 })
+
+interface ColumnTimeline {
+    type: "timeline"
+    params: {
+        instance: string
+        account?: string
+        type: "home" | "public" | "public:local"
+    } | {
+        instance: string
+        account?: string
+        type: "hashtag" | "hashtag:local"
+        hashtag: string
+    }
+}
+
+export type Column = ColumnTimeline
 

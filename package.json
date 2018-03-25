@@ -5,10 +5,12 @@
   "author": "rinsuki <428rinsuki+git@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/uuid": "^3.4.3",
     "css-loader": "^0.28.11",
     "style-loader": "^0.20.3",
     "ts-loader": "^4.1.0",
     "typescript": "^2.7.2",
+    "uuid": "^3.2.1",
     "vue": "^2.5.16",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.5.16",

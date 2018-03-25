@@ -1,25 +1,29 @@
 <template>
     <div>
         <div class="columns">
-            <timeline v-for="instance in $store.state.tabs" :key="instance" :instance="instance"/>
-            <div>
+            <template v-for="(column, uuid) in $store.state.columns">
+                <div :is="'column-'+column.type" :key="uuid" :uuid="uuid" />
+            </template>
+            <column title="新規カラムを追加" icon="plus">
                 <form v-on:submit="add">
                     <input v-model="newInstance">
                     <button>+</button>
                 </form>
-            </div>
+            </column>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import timeline from "./components/timeline.vue"
+import ColumnTimeline from "./components/columns/timeline.vue"
+import column from "./components/common/column.vue"
 import { store } from "./store"
 
 export default Vue.extend({
     components: {
-        timeline,
+        "column-timeline": ColumnTimeline,
+        column,
     },
     data: () => ({
         newInstance: "",
@@ -27,7 +31,13 @@ export default Vue.extend({
     methods: {
         add(e: any) {
             e.preventDefault(e)
-            store.dispatch("addTab", this.newInstance).then(() => {
+            store.dispatch("addColumn", {
+                type: "timeline",
+                params: {
+                    instance: this.newInstance,
+                    type: "public:local",
+                }
+            }).then(() => {
                 this.newInstance = ""
             })
         }
@@ -40,8 +50,7 @@ export default Vue.extend({
         display: flex;
     }
     .columns > * {
-        flex: 1;
-        max-height: 100%;
-        overflow-y: auto;
+        flex: 0 0 auto;
+        width: 320px;
     }
 </style>
