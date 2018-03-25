@@ -14,9 +14,9 @@ store.dispatch("addColumn", {
 store.dispatch("addColumn", {
     type: "timeline",
     params: {
-        instance: "mstdn.maud.io",
+        instance: "mstdn.veryyyyyyyyyyyyyyyyyyyyyyyyyyylongdomain.example",
         type: "hashtag",
-        hashtag: "test",
+        hashtag: "veryyyyyyyyyyyyyyyyyyyyyyylonghashtag",
     }
 })
 

@@ -3,8 +3,8 @@
         <div class="header">
             <i :class="['fa', 'fa-'+icon]" v-if="icon"/>
             <div class="header-main">
-                <div class="title">{{ title }}</div>
-                <div class="instance">{{ account}}</div>
+                <div class="title" :title="title">{{ title }}</div>
+                <div class="instance" :title="account">{{ account}}</div>
             </div>
         </div>
         <div class="main">
@@ -54,7 +54,15 @@ export default Vue.extend({
     flex: 1;
     display: flex;
     flex-flow: column;
+    overflow: hidden;
 }
+
+.header-main > * {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .header .instance {
     font-size: 75%;
 }

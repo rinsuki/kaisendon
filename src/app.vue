@@ -51,6 +51,6 @@ export default Vue.extend({
     }
     .columns > * {
         flex: 0 0 auto;
-        width: 320px;
+        width: 360px;
     }
 </style>
