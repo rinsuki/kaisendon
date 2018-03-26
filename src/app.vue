@@ -2,7 +2,15 @@
     <div>
         <div class="columns">
             <template v-for="column in columns">
-                <div :is="'column-'+column.type" :key="column.uuid" :uuid="column.uuid" />
+                <div :is="'column-'+column.type" :key="column.uuid" :uuid="column.uuid">
+                    <column :uuid="column.uuid">
+                        <div class="error-column">
+                            <p>現在カラムをロードしています。</p>
+                            <p>いつまでたってもこのカラムが表示されない場合は、内部エラーが発生している可能性があります。</p>
+                            <p>右上の <i class="fa fa-cog" /> をクリックすると、このカラムを削除することができます。</p>
+                        </div>
+                    </column>
+                </div>
             </template>
             <column title="新規カラムを追加" icon="plus">
                 <form v-on:submit="add">
@@ -60,5 +68,8 @@ export default Vue.extend({
     .columns > * {
         flex: 0 0 auto;
         width: 360px;
+    }
+    .error-column {
+        padding: .5em;
     }
 </style>
