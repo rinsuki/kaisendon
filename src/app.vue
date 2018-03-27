@@ -1,10 +1,15 @@
 <template>
-    <div>
+    <div class="app">
+        <div class="column-selector">
+            <a v-for="column in columns" :href="'#' + column.uuid" :key="column.uuid">
+                <i class="fa fa-home" />
+            </a>
+        </div>
         <div class="columns">
             <template v-for="column in columns">
-                <div :is="'column-'+column.type" :key="column.uuid" :uuid="column.uuid">
-                    <column :uuid="column.uuid">
-                        <div class="error-column">
+                <div :is="'column-'+column.type" :id="column.uuid" :key="column.uuid" :uuid="column.uuid">
+                    <column :uuid="column.uuid" class="error-column">
+                        <div>
                             <p>現在カラムをロードしています。</p>
                             <p>いつまでたってもこのカラムが表示されない場合は、内部エラーが発生している可能性があります。</p>
                             <p>右上の <i class="fa fa-cog" /> をクリックすると、このカラムを削除することができます。</p>
@@ -27,6 +32,7 @@ import Vue from 'vue'
 import ColumnTimeline from "./components/columns/timeline.vue"
 import column from "./components/common/column.vue"
 import { store } from "./store"
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
     components: {
@@ -51,25 +57,31 @@ export default Vue.extend({
         }
     },
     computed: {
-        columns() {
-            return store.state.columnLocations.map(uuid => ({
-                uuid,
-                ...store.state.columns[uuid]
-            }))
-        }
+        ...mapGetters({
+            columns: "columnsList"
+        })
     }
 })
 </script>
 
-<style scoped>
-    .columns {
-        display: flex;
-    }
-    .columns > * {
-        flex: 0 0 auto;
-        width: 360px;
-    }
-    .error-column {
-        padding: .5em;
-    }
+
+<style lang="stylus" scoped>
+.app
+    display flex
+    width 100vw
+    height 100vh
+    overflow-y hidden
+.column-selector
+    display flex
+    flex-flow column
+.columns
+    flex 1
+    display flex
+    overflow-x auto
+    > *
+        margin 0.5em
+    > *, .error-column
+        display block
+        flex 0 0 auto
+        width 360px
 </style>

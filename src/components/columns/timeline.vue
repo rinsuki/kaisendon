@@ -61,6 +61,9 @@ export default Vue.extend({
                 }
                 const a = m.payload
                 this.posts.unshift(JSON.parse(a))
+                while (this.posts.length >= 1000) {
+                    this.posts.pop()
+                }
             })
             this.ws = ws
         },
@@ -140,20 +143,20 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
-    article {
-        display: flex;
-        padding: 0.5em;
-    }
-    article:not(:first-child) {
-        border-top: solid 1px #888;
-    }
-    img {
-        width: 3em;
-        height: 3em;
-        margin-right: 1em;
-    }
-    .main {
-        flex: 1;
-    }
+<style lang="stylus" scoped>
+article
+    display flex
+    padding 0.5em
+
+    &:not(:first-child)
+        border-top solid 1px #888
+
+    img
+        size = 3em
+        width size
+        height size
+        margin-right 1em
+    
+    .main
+        flex 1
 </style>
