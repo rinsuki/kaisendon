@@ -43,76 +43,51 @@ export default Vue.extend({
 })
 </script>
 
+<style lang="stylus" scoped>
+.column
+    display flex
+    flex-flow column
+    background #eee
+    margin 0.5em
 
-<style scoped>
-.column {
-    display: flex;
-    flex-flow: column;
-    background: #eee;
-    margin: 0.5em;
-    height: calc(100vh - 1em);
-}
-.header {
-    background: #ddd;
-    display: flex;
-    height: 3em;
-    align-items: center;
-}
-.header:first-child {
-    padding-left: 1em;
-}
-
-.header > *:not(:last-child) {
-    padding-right: 0.5em;
-}
-
-.header > .fa {
-    font-size: 150%;
-    padding-right: 0.5em;
-}
-
-.header-main{
-    flex: 1;
-    display: flex;
-    flex-flow: column;
-    overflow: hidden;
-}
-
-.header-main > * {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.header .instance {
-    font-size: 75%;
-}
-
-.header button {
-    width: 3rem;
-    height: 3rem;
-    font-size: 1.25rem;
-}
-
-.main {
-    flex: 1;
-    overflow-y: auto;
-}
-
-.settings {
-    padding: 0.5em;
-    background: #ccc;
-}
-
-.header > button {
-    background: inherit;
-    border: none;
-}
-.header > button:focus {
-    outline: none;
-}
-.header > button.active {
-    background: #ccc;
-}
-
+    .header
+        background #ddd
+        display flex
+        height 3em
+        align-items center
+        &:first-child
+            padding-left 1em
+        > *:not(:last-child)
+            padding-right 0.5em
+        > .fa
+            font-size 150%
+            padding-right 0.5em
+        .header-main
+            flex 1
+            display flex
+            flex-flow column
+            overflow hidden
+            > *
+                overflow hidden
+                white-space nowrap
+                text-overflow ellipsis
+        .instance
+            font-size 75%
+        button 
+            width 3rem
+            height 3rem
+            font-size 1.25rem
+            background transparent
+            border none 
+            :focus
+                outline none
+            &.active
+                background #ccc
+    .main
+        flex 1
+        overflow-y auto
+    .settings
+        padding: 0.5em
+        background: #ccc
+        
 </style>

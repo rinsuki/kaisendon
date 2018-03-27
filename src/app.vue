@@ -1,8 +1,13 @@
 <template>
-    <div>
+    <div class="app">
+        <div class="column-selector">
+            <a v-for="column in columns" :href="'#' + column.uuid" :key="column.uuid">
+                <i class="fa fa-home" />
+            </a>
+        </div>
         <div class="columns">
             <template v-for="column in columns">
-                <div :is="'column-'+column.type" :key="column.uuid" :uuid="column.uuid" />
+                <div :is="'column-'+column.type" :id="column.uuid" :key="column.uuid" :uuid="column.uuid" />
             </template>
             <column title="新規カラムを追加" icon="plus">
                 <form v-on:submit="add">
@@ -53,12 +58,21 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
-    .columns {
-        display: flex;
-    }
-    .columns > * {
-        flex: 0 0 auto;
-        width: 360px;
-    }
+
+<style lang="stylus" scoped>
+.app
+    display flex
+    width 100vw
+    height 100vh
+    overflow-x scroll 
+    overflow-y hidden
+.column-selector
+    display flex
+    flex-flow column
+.columns
+    flex 1
+    display flex
+    > *
+        flex 0 0 auto 
+        width 360px
 </style>
