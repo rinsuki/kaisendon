@@ -32,8 +32,6 @@ export const store = new Vuex.Store({
             const tmpUuid = state.columnLocations[i-1]
             Vue.set(state.columnLocations, i, tmpUuid)
             Vue.set(state.columnLocations, i-1, uuid)
-            console.log(state)
-            state.columnLocations = state.columnLocations
         },
         moveToRightColumn(state, uuid) {
             const i = state.columnLocations.indexOf(uuid)
@@ -41,8 +39,6 @@ export const store = new Vuex.Store({
             const tmpUuid = state.columnLocations[i+1]
             Vue.set(state.columnLocations, i, tmpUuid)
             Vue.set(state.columnLocations, i+1, uuid)
-            console.log(state)
-            state.columnLocations = state.columnLocations
         }
     },
     actions: {
@@ -58,7 +54,6 @@ export const store = new Vuex.Store({
     },
     getters: {
         columnsList(state) {
-            console.log(state)
             return state.columnLocations.map(uuid => ({
                 uuid,
                 ...state.columns[uuid],
