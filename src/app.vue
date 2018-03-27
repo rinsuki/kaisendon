@@ -24,6 +24,7 @@ import Vue from 'vue'
 import ColumnTimeline from "./components/columns/timeline.vue"
 import column from "./components/common/column.vue"
 import { store } from "./store"
+import { mapGetters } from 'vuex';
 
 export default Vue.extend({
     components: {
@@ -48,12 +49,9 @@ export default Vue.extend({
         }
     },
     computed: {
-        columns() {
-            return store.state.columnLocations.map(uuid => ({
-                uuid,
-                ...store.state.columns[uuid]
-            }))
-        }
+        ...mapGetters({
+            columns: "columnsList"
+        })
     }
 })
 </script>
@@ -64,7 +62,6 @@ export default Vue.extend({
     display flex
     width 100vw
     height 100vh
-    overflow-x scroll 
     overflow-y hidden
 .column-selector
     display flex
@@ -72,6 +69,7 @@ export default Vue.extend({
 .columns
     flex 1
     display flex
+    overflow-x auto
     > *
         flex 0 0 auto 
         width 360px

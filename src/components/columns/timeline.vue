@@ -61,6 +61,9 @@ export default Vue.extend({
                 }
                 const a = m.payload
                 this.posts.unshift(JSON.parse(a))
+                while (this.posts.length >= 1000) {
+                    this.posts.pop()
+                }
             })
             this.ws = ws
         },

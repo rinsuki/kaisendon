@@ -25,6 +25,24 @@ export const store = new Vuex.Store({
             if (storage) {
                 (<any>this).replaceState(Object.assign(state, JSON.parse(storage)))
             }
+        },
+        moveToLeftColumn(state, uuid) {
+            const i = state.columnLocations.indexOf(uuid)
+            if (i < 1) return
+            const tmpUuid = state.columnLocations[i-1]
+            Vue.set(state.columnLocations, i, tmpUuid)
+            Vue.set(state.columnLocations, i-1, uuid)
+            console.log(state)
+            state.columnLocations = state.columnLocations
+        },
+        moveToRightColumn(state, uuid) {
+            const i = state.columnLocations.indexOf(uuid)
+            if (i == -1 || i == state.columnLocations.length - 1) return
+            const tmpUuid = state.columnLocations[i+1]
+            Vue.set(state.columnLocations, i, tmpUuid)
+            Vue.set(state.columnLocations, i+1, uuid)
+            console.log(state)
+            state.columnLocations = state.columnLocations
         }
     },
     actions: {
@@ -36,6 +54,15 @@ export const store = new Vuex.Store({
         },
         removeColumn(context, uuid: string) {
             context.commit("removeColumn", uuid)
+        }
+    },
+    getters: {
+        columnsList(state) {
+            console.log(state)
+            return state.columnLocations.map(uuid => ({
+                uuid,
+                ...state.columns[uuid],
+            }))
         }
     }
 })

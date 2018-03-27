@@ -12,7 +12,13 @@
         </div>
         <div class="settings" v-show="settingsOpen">
             <slot name="settings"/>
-            <button class="text-button" v-if="uuid" v-on:click="$store.dispatch('removeColumn', uuid)"><i class="fa fa-times"/> このカラムを消す</button>
+            <div class="uuid" v-if="uuid">UUID: {{ uuid }}</div>
+            <div class="last-button" v-if="uuid">
+                <button class="text-button" v-on:click="$store.dispatch('removeColumn', uuid)"><i class="fa fa-times"/> このカラムを消す</button>
+                <div class="spacer"></div>
+                <button class="text-button" v-on:click="$store.commit('moveToLeftColumn', uuid)"><i class="fa fa-chevron-left" /></button>
+                <button class="text-button" v-on:click="$store.commit('moveToRightColumn', uuid)"><i class="fa fa-chevron-right" /></button>
+            </div>
         </div>
         <div class="main">
             <slot />
@@ -89,5 +95,12 @@ export default Vue.extend({
     .settings
         padding: 0.5em
         background: #ccc
-        
+        .uuid
+            font-size 0.75em
+        .last-button
+            display flex
+            .spacer
+                flex 1
+            > *
+                margin 0 0.25em
 </style>
