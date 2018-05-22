@@ -22,6 +22,11 @@
                     <input v-model="newInstance">
                     <button>+</button>
                 </form>
+                <h2>アカウント追加</h2>
+                <form @submit="addAccount">
+                    <input v-model="authInstance">
+                    <button>認証</button>
+                </form>
             </column>
         </div>
     </div>
@@ -31,7 +36,7 @@
 import Vue from 'vue'
 import ColumnTimeline from "./components/columns/timeline.vue"
 import column from "./components/common/column.vue"
-import { store } from "./store"
+import { store } from "../store"
 import { mapGetters } from 'vuex';
 
 export default Vue.extend({
@@ -41,6 +46,7 @@ export default Vue.extend({
     },
     data: () => ({
         newInstance: "",
+        authInstance: "",
     }),
     methods: {
         add(e: any) {
@@ -54,6 +60,10 @@ export default Vue.extend({
             }).then(() => {
                 this.newInstance = ""
             })
+        },
+        addAccount(e: any) {
+            e.preventDefault()
+            this.$store.dispatch('createClient', this.authInstance).then(r => location.href = r.authUrl)
         }
     },
     computed: {
@@ -72,12 +82,24 @@ export default Vue.extend({
     height 100vh
     overflow-y hidden
 .column-selector
+    position sticky
+    background rgba(238, 238, 238, 0.9)
+    left 0
     display flex
     flex-flow column
+    > a
+        font-size 2rem
+        width 1.5em
+        height 1.5em
+        text-align: center
+        > i
+            display inline-block
+            vertical-align middle
+        color: #666
+        
 .columns
     flex 1
     display flex
-    overflow-x auto
     > *
         margin 0.5em
     > *, .error-column

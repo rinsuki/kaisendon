@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { store, Column } from "../../store"
+import { store, Column } from "../../../store"
 import column from "../common/column.vue"
 
 export default Vue.extend({

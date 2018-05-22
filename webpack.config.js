@@ -1,11 +1,19 @@
 const path = require("path")
 
+const entries = [
+    "client",
+    "oauth_callback",
+]
+
 module.exports = {
     mode: "development",
-    entry: path.resolve(__dirname, "src/index.ts"),
+    entry: entries.reduce((prev, current) => ({
+        ...prev,
+        [current]: path.resolve(__dirname, "src/"+current),
+    }), {}),
     output: {
         path: path.resolve(__dirname, "public/webpack"),
-        filename: "bundle.js",
+        filename: "[name].js",
     },
     module: {
         rules: [
